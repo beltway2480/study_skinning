@@ -45,14 +45,16 @@ onload = function()
     const SHADER_BINDING_BONE_OBJECT = 2;
     aBlockIndex[0] = gl.getUniformBlockIndex(prg, 'scene');
     aBlockIndex[1] = gl.getUniformBlockIndex(prg, 'object');
+    aBlockIndex[1] = gl.getUniformBlockIndex(prg_skin, 'bone');
     gl.uniformBlockBinding(prg, aBlockIndex[0], SHADER_BINDING_SCENE);
     gl.uniformBlockBinding(prg, aBlockIndex[1], SHADER_BINDING_OBJECT);
+    gl.uniformBlockBinding(prg, aBlockIndex[2], SHADER_BINDING_BONE_OBJECT);
     aUBO[0] = gl.createBuffer();
     aUBO[1] = gl.createBuffer();
+    aUBO[2] = gl.createBuffer();
     gl.bindBufferBase(gl.UNIFORM_BUFFER, SHADER_BINDING_SCENE, aUBO[0]);
     gl.bindBufferBase(gl.UNIFORM_BUFFER, SHADER_BINDING_OBJECT, aUBO[1]);
-    aUniformLocation[0] = gl.getUniformLocation(prg_skin, 'mWorld0');
-    aUniformLocation[1] = gl.getUniformLocation(prg_skin, 'mWorld1');
+    gl.bindBufferBase(gl.UNIFORM_BUFFER, SHADER_BINDING_BONE_OBJECT, aUBO[2]);
 
 	
     // 円柱モデル生成
@@ -283,12 +285,21 @@ onload = function()
       gl.useProgram(prg_skin);
 
       // 描画用行列の設定【この行列の設定をどうにかする】
-      gl.uniformMatrix4fv(aUniformLocation[0], false, a_wMatrix[0]);
+//      gl.uniformMatrix4fv(aUniformLocation[0], false, a_wMatrix[0]);
       var m1 = mat.create();
       mat.multiply(a_wMatrix[0], a_lMatrix[1], m1 );
       mat.multiply(m1, a_bMatrixInverse[1], m1 );
-      gl.uniformMatrix4fv(aUniformLocation[1], false, m1);
-
+//      gl.uniformMatrix4fv(aUniformLocation[1], false, m1);
+      gl.bindBuffer(gl.UNIFORM_BUFFER, aUBO[2]);
+      gl.bufferData(gl.UNIFORM_BUFFER, new Float32Array([
+        a_wMatrix[0][0], a_wMatrix[0][1], a_wMatrix[0][2], a_wMatrix[0][3],
+        a_wMatrix[0][4], a_wMatrix[0][5], a_wMatrix[0][6], a_wMatrix[0][7],
+        a_wMatrix[0][8], a_wMatrix[0][9], a_wMatrix[0][10], a_wMatrix[0][11],
+        a_wMatrix[0][12], a_wMatrix[0][13], a_wMatrix[0][14], a_wMatrix[0][15],
+	m1[0],m1[1],m1[2],m1[3],m1[4],m1[5],m1[6],m1[7],
+	m1[8],m1[9],m1[10],m1[11],m1[12],m1[13],m1[14],m1[15]
+      ]), gl.DYNAMIC_DRAW);
+      gl.bindBuffer(gl.UNIFORM_BUFFER, null);
       gl.bindBuffer(gl.ARRAY_BUFFER, mesh_vbo);
       gl.enableVertexAttribArray(aAttribLoc[2]);
       gl.enableVertexAttribArray(aAttribLoc[3]);
