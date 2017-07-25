@@ -279,7 +279,6 @@ onload = function()
       if(bend < 0.25) {angle = bend * Math.PI;}
       else if(bend < 0.50) {angle = (0.5 - bend) * Math.PI;}
       mat.rotate(mat.identity(mat.create()), angle, [1.0, 0.0, 0.0], a_lMatrix[1]);// src angle axis dest
-//      mat.rotate(a_bMatrix[1], angle, [1.0, 0.0, 0.0], a_lMatrix[1]);// src angle axis dest
       // モデルのワールド行列の生成
       a_wMatrix[0] = a_lMatrix[0];
       mat.multiply(a_wMatrix[0], a_bMatrix[1], a_wMatrix[1] );
@@ -358,20 +357,20 @@ onload = function()
     })();
 
 	// バッファオブジェクトを生成する関数
-	function create_buffer_object(type, data){
-		var vbo = gl.createBuffer();
-		gl.bindBuffer(type, vbo);
-		gl.bufferData(type, data, gl.STATIC_DRAW);
-		gl.bindBuffer(type, null);
-		return vbo;
-	}
+    function create_buffer_object(type, data){
+      var vbo = gl.createBuffer();
+      gl.bindBuffer(type, vbo);
+      gl.bufferData(type, data, gl.STATIC_DRAW);
+      gl.bindBuffer(type, null);
+      return vbo;
+    }
 	
-	function load_shader(type, id){
+    function load_shader(type, id){
       var out = gl.createShader(type);
       gl.shaderSource(out, document.getElementById(id).textContent);
       gl.compileShader(out);
       console.log(gl.getShaderInfoLog(out));
       return out;
-	}
+    }
 	
 }
