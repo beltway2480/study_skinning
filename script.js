@@ -291,9 +291,9 @@ onload = function()
       // 【この行列の設定をどうにかする】
       gl.uniformMatrix4fv(aUniformLocation[0], false, a_wMatrix[0]);
       var m1 = mat.create();
-      mat.multiply(a_wMatrix[0], a_bMatrixInverse[1], m1 );
+      mat.multiply(a_wMatrix[0], a_bMatrix[1], m1 );
       mat.multiply(m1, a_lMatrix[1], m1 );
-      mat.multiply(m1, a_bMatrix[1], m1 );
+      mat.multiply(m1, a_bMatrixInverse[1], m1 );
       gl.uniformMatrix4fv(aUniformLocation[1], false, m1);
 	    
       gl.bindBuffer(gl.ARRAY_BUFFER, mesh_vbo);
