@@ -250,7 +250,7 @@ onload = function()
     mat.translate(a_lMatrix[0], [0.0, -0.5, 0.0], a_lMatrix[0]);
     mat.translate(a_bMatrix[1], [0.0, +0.5, 0.0], a_bMatrix[1]);
     a_bMatrixInverse[0] = a_bMatrix[0];
-    mat.inverse(a_bMatrix[1], a_bMatrixInverse[1]));
+    mat.inverse(a_bMatrix[1], a_bMatrixInverse[1]);
 
     gl.enable(gl.DEPTH_TEST);
     
