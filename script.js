@@ -16,6 +16,7 @@ onload = function()
 
     var mat = new matIV();
     var a_bMatrix = [];// バインド行列
+    var a_bMatrixInverse = [];// バインド行列
     var a_lMatrix = [];// ローカル行列
     var a_wMatrix = [];// ワールド行列
     var vpMatrix;
@@ -248,6 +249,8 @@ onload = function()
     a_wMatrix[1]  = mat.identity(mat.create());
     mat.translate(a_lMatrix[0], [0.0, -0.5, 0.0], a_lMatrix[0]);
     mat.translate(a_bMatrix[1], [0.0, +0.5, 0.0], a_bMatrix[1]);
+    a_bMatrixInverse[0] = a_bMatrix[0];
+    mat.inverse(a_bMatrix[1], a_bMatrixInverse[1]));
 
     gl.enable(gl.DEPTH_TEST);
     
@@ -284,7 +287,11 @@ onload = function()
 
       // 【この行列の設定をどうにかする】
       gl.uniformMatrix4fv(aUniformLocation[0], false, a_wMatrix[0]);
-      gl.uniformMatrix4fv(aUniformLocation[1], false, a_wMatrix[0]);
+      var m1 = mat.create();
+      mat.multiply(a_wMatrix[0], a_bMatrixInverse[1], m1 );
+      mat.multiply(m1, a_lMatrix[1], m1 );
+      mat.multiply(m1, a_bMatrix[1], m1 );
+      gl.uniformMatrix4fv(aUniformLocation[1], false, m1);
 	    
       gl.bindBuffer(gl.ARRAY_BUFFER, mesh_vbo);
       gl.enableVertexAttribArray(aAttribLoc[2]);
@@ -298,7 +305,6 @@ onload = function()
       
       gl.drawElements(gl.LINES, 420, gl.UNSIGNED_SHORT, 0);
       
-if(true){
       // 座標軸の表示
       gl.useProgram(prg);
       gl.bindBuffer(gl.ARRAY_BUFFER, axis_vbo);
@@ -338,7 +344,6 @@ if(true){
       gl.bufferData(gl.UNIFORM_BUFFER, mat.identity(mat.create()), gl.STATIC_DRAW);
       gl.bindBuffer(gl.UNIFORM_BUFFER, null);
       gl.drawArrays(gl.LINES, 0, 2);
-}
 
       // 後片付け
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
