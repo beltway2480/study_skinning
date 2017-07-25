@@ -16,7 +16,7 @@ onload = function()
 
     var mat = new matIV();
     var a_bMatrix = [];// バインド行列
-    var a_bMatrixInverse = [];// バインド行列
+    var a_bMatrixInverse = [];// 逆バインド行列
     var a_lMatrix = [];// ローカル行列
     var a_wMatrix = [];// ワールド行列
     var vpMatrix;
@@ -276,8 +276,8 @@ onload = function()
       bend += 0.1 * elapsedTime;
       if(1.0 < bend) bend -= 1.0;
       var angle = 0.0;
-      if(bend < 0.25) {angle = bend * Math.PI;}
-      else if(bend < 0.50) {angle = (0.5 - bend) * Math.PI;}
+      if(bend < 0.25) {angle = bend * 2.0 * Math.PI;}
+      else if(bend < 0.50) {angle = (0.5 - bend) * 2.0 * Math.PI;}
       mat.rotate(a_bMatrix[1], angle, [1.0, 0.0, 0.0], a_lMatrix[1]);// src angle axis dest
       // モデルのワールド行列の生成
       a_wMatrix[0] = a_lMatrix[0];
