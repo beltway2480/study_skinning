@@ -278,11 +278,10 @@ onload = function()
       var angle = 0.0;
       if(bend < 0.25) {angle = bend * Math.PI;}
       else if(bend < 0.50) {angle = (0.5 - bend) * Math.PI;}
-      mat.rotate(mat.identity(mat.create()), angle, [1.0, 0.0, 0.0], a_lMatrix[1]);// src angle axis dest
+      mat.rotate(a_bMatrix[1], angle, [1.0, 0.0, 0.0], a_lMatrix[1]);// src angle axis dest
       // モデルのワールド行列の生成
       a_wMatrix[0] = a_lMatrix[0];
-      mat.multiply(a_wMatrix[0], a_bMatrix[1], a_wMatrix[1] );
-      mat.multiply(a_wMatrix[1], a_lMatrix[1], a_wMatrix[1] );
+      mat.multiply(a_wMatrix[0], a_lMatrix[1], a_wMatrix[1] );
 
       // モデル描画
       gl.useProgram(prg_skin);
@@ -290,8 +289,7 @@ onload = function()
       // 【この行列の設定をどうにかする】
       gl.uniformMatrix4fv(aUniformLocation[0], false, a_wMatrix[0]);
       var m1 = mat.create();
-      mat.multiply(a_wMatrix[0], a_bMatrix[1], m1 );
-      mat.multiply(m1, a_lMatrix[1], m1 );
+      mat.multiply(a_wMatrix[0], a_lMatrix[1], m1 );
       mat.multiply(m1, a_bMatrixInverse[1], m1 );
       gl.uniformMatrix4fv(aUniformLocation[1], false, m1);
 	    
