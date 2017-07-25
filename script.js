@@ -48,7 +48,8 @@ onload = function()
     aBlockIndex[2] = gl.getUniformBlockIndex(prg_skin, 'bone');
     gl.uniformBlockBinding(prg, aBlockIndex[0], SHADER_BINDING_SCENE);
     gl.uniformBlockBinding(prg, aBlockIndex[1], SHADER_BINDING_OBJECT);
-    gl.uniformBlockBinding(prg, aBlockIndex[2], SHADER_BINDING_BONE_OBJECT);
+    gl.uniformBlockBinding(prg_skin, aBlockIndex[0], SHADER_BINDING_SCENE);
+    gl.uniformBlockBinding(prg_skin, aBlockIndex[2], SHADER_BINDING_BONE_OBJECT);
     aUBO[0] = gl.createBuffer();
     aUBO[1] = gl.createBuffer();
     aUBO[2] = gl.createBuffer();
