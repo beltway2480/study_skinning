@@ -299,7 +299,7 @@ onload = function()
 	m1[0],m1[1],m1[2],m1[3],m1[4],m1[5],m1[6],m1[7],
 	m1[8],m1[9],m1[10],m1[11],m1[12],m1[13],m1[14],m1[15]
       ]), gl.DYNAMIC_DRAW);
-//      gl.bindBuffer(gl.UNIFORM_BUFFER, null);
+      gl.bindBuffer(gl.UNIFORM_BUFFER, null);
 
       gl.bindBuffer(gl.ARRAY_BUFFER, mesh_vbo);
       gl.enableVertexAttribArray(aAttribLoc[2]);
