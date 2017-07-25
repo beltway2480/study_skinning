@@ -45,7 +45,7 @@ onload = function()
     const SHADER_BINDING_BONE_OBJECT = 2;
     aBlockIndex[0] = gl.getUniformBlockIndex(prg, 'scene');
     aBlockIndex[1] = gl.getUniformBlockIndex(prg, 'object');
-    aBlockIndex[1] = gl.getUniformBlockIndex(prg_skin, 'bone');
+    aBlockIndex[2] = gl.getUniformBlockIndex(prg_skin, 'bone');
     gl.uniformBlockBinding(prg, aBlockIndex[0], SHADER_BINDING_SCENE);
     gl.uniformBlockBinding(prg, aBlockIndex[1], SHADER_BINDING_OBJECT);
     gl.uniformBlockBinding(prg, aBlockIndex[2], SHADER_BINDING_BONE_OBJECT);
@@ -300,6 +300,7 @@ onload = function()
 	m1[8],m1[9],m1[10],m1[11],m1[12],m1[13],m1[14],m1[15]
       ]), gl.DYNAMIC_DRAW);
       gl.bindBuffer(gl.UNIFORM_BUFFER, null);
+
       gl.bindBuffer(gl.ARRAY_BUFFER, mesh_vbo);
       gl.enableVertexAttribArray(aAttribLoc[2]);
       gl.enableVertexAttribArray(aAttribLoc[3]);
