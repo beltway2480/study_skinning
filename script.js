@@ -243,13 +243,14 @@ onload = function()
     // メッシュの行列の初期化
     a_bMatrix[0]  = mat.identity(mat.create());
     a_bMatrix[1]  = mat.identity(mat.create());
+    a_bMatrixInverse[0]  = mat.identity(mat.create());
+    a_bMatrixInverse[1]  = mat.identity(mat.create());
     a_lMatrix[0]  = mat.identity(mat.create());
     a_lMatrix[1]  = mat.identity(mat.create());
     a_wMatrix[0]  = mat.identity(mat.create());
     a_wMatrix[1]  = mat.identity(mat.create());
     mat.translate(a_lMatrix[0], [0.0, -0.5, 0.0], a_lMatrix[0]);
     mat.translate(a_bMatrix[1], [0.0, +0.5, 0.0], a_bMatrix[1]);
-    a_bMatrixInverse[0] = a_bMatrix[0];
     mat.inverse(a_bMatrix[1], a_bMatrixInverse[1]);
 
     gl.enable(gl.DEPTH_TEST);
