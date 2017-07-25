@@ -57,7 +57,7 @@ onload = function()
     aUniformLocation[1] = gl.getUniformLocation(prg_skin, 'mWorld1');
 
 	
-    // メッシュデータ生成
+    // 円柱モデル生成
     var mesh_vbo = create_buffer_object(gl.ARRAY_BUFFER, new Float32Array([
     //    x,     y,     z,     R,   G,   B,   A,  weight
       +0.0000, 0.0, +0.1000,  0.0, 0.0, 1.0, 1.0,  1.0,
